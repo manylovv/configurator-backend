@@ -6,6 +6,10 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+const getImageUrl = (imageName: string) => {
+  return `${process.env.IMAGE_PREFIX_URL}${imageName}`;
+};
+
 export const config = {
   runtime: 'edge',
 };
@@ -45,23 +49,29 @@ app.get('/colors', async (c) => {
       name: 'Verde Giada',
       price: null,
       type: 'Metallic',
+      imageUrl: getImageUrl('/colors/verde_giada.jpg'),
     },
     {
-      name: 'Grigio Maratea Matte',
-      price: 4500,
+      name: 'Grigio Incognito',
+      price: null,
       type: 'Non-Metallic',
+      imageUrl: getImageUrl('/colors/grigio_incognito.jpg'),
     },
     {
       name: 'Blu Modena',
       price: 4500,
       type: 'Metallic',
+      imageUrl: getImageUrl('/colors/blu_modena.jpg'),
     },
     {
       name: 'Blu Royale - Fuoriserie',
       price: null,
       type: 'Fuoriserie',
+      imageUrl: getImageUrl('/colors/blu_royale_fuoriserie.jpg'),
     },
   ];
+
+  return c.json({ colors: colors });
 });
 
 export default handle(app);
