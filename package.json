@@ -1,0 +1,14 @@
+{
+  "name": "configurator-backend",
+  "scripts": {
+    "start": "vercel dev --listen 3001",
+    "deploy": "vercel"
+  },
+  "dependencies": {
+    "hono": "^4.5.5",
+    "telegraf": "^4.16.3"
+  },
+  "devDependencies": {
+    "vercel": "^32.4.1"
+  }
+}
