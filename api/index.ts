@@ -18,7 +18,7 @@ const app = new Hono().basePath('/api');
 
 app.use('*', cors());
 
-app.get('/wheels', async (c) => {
+app.get('/configurator', async (c) => {
   const wheels = [
     {
       imageUrl: 'https://i.imgur.com/0td8fwC.png',
@@ -40,10 +40,6 @@ app.get('/wheels', async (c) => {
     },
   ];
 
-  return c.json({ wheels: wheels });
-});
-
-app.get('/colors', async (c) => {
   const colors = [
     {
       name: 'Verde Giada',
@@ -71,7 +67,27 @@ app.get('/colors', async (c) => {
     },
   ];
 
-  return c.json({ colors: colors });
+  const colorsTypes = ['Non-Metallic', 'Metallic', 'Fuoriserie'];
+
+  const packages = [
+    {
+      name: 'Comfort Package',
+      imageUrl: getImageUrl('/packages/comfort.jpg'),
+      price: 1470,
+      characteristics: [
+        'Ventilated Front Seats',
+        'Hands-Free Tailgate with Kick Sensor',
+        'Heated Black Leather Sport Steering Wheel',
+      ],
+    },
+  ];
+
+  return c.json({
+    wheels,
+    colors,
+    colorsTypes,
+    packages,
+  });
 });
 
 export default handle(app);
