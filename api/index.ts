@@ -80,6 +80,16 @@ app.get('/configurator', async (c) => {
         'Heated Black Leather Sport Steering Wheel',
       ],
     },
+    {
+      name: 'Sport Design Package',
+      imageUrl: getImageUrl('/packages/sport-design.jpg'),
+      price: 1800,
+      characteristics: [
+        'Lightweight Sport Pedals (Aluminium/Stainless Steel) + Aluminium Footrest',
+        'Illuminated Stainless Steel Door Sill Plates with Maserati Script',
+        'DLO moulding in glossy black',
+      ],
+    },
   ];
 
   return c.json({
