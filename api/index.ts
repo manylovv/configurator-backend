@@ -90,6 +90,12 @@ app.get('/configurator', async (c) => {
         'DLO moulding in glossy black',
       ],
     },
+    {
+      name: 'Tech Assistance Package',
+      imageUrl: getImageUrl('/packages/tech-assistance.jpg'),
+      price: 2600,
+      characteristics: ['Frameless digital rearview mirror', 'Head Up Display'],
+    },
   ];
 
   return c.json({
