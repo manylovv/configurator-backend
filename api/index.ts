@@ -96,6 +96,35 @@ app.get('/configurator', async (c) => {
       price: 2600,
       characteristics: ['Frameless digital rearview mirror', 'Head Up Display'],
     },
+    {
+      name: 'ADAS Full Package',
+      imageUrl: getImageUrl('/packages/ADAS.jpg'),
+      price: 8300,
+      characteristics: [
+        'Adaptive Cruise Control (with Stop&Go)',
+        'Active Lane Management (Active Blind Spot & Lane Keeping)',
+        'Blind Spot Monitor',
+        'Drowsy Driver Detection',
+        '360° surround view camera',
+        'Traffic Sign Recognition',
+        'Active Driving Assist',
+        'Traffic Sign Recognition',
+        'Intersection Collision Assist',
+        'Automated Emergency Braking with Pedestrian Recognition',
+      ],
+    },
+    {
+      name: 'ADAS Base Package',
+      imageUrl: getImageUrl('/packages/ADAS.jpg'),
+      price: 4500,
+      characteristics: [
+        'Adaptive Cruise Control (with Stop&Go)',
+        'Active Lane Management (Active Blind Spot & Lane Keeping)',
+        'Blind Spot Monitor',
+        'Drowsy Driver Detection',
+        '360° surround view camera',
+      ],
+    },
   ];
 
   return c.json({
