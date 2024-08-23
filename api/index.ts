@@ -127,11 +127,90 @@ app.get('/configurator', async (c) => {
     },
   ];
 
+  const seats = [
+    {
+      name: 'Cuoio',
+      imageUrl: getImageUrl('/seats/cuoio.jpg'),
+    },
+    {
+      name: 'Cuoio White Top',
+      imageUrl: getImageUrl('/seats/cuoio-white-top.jpg'),
+    },
+    {
+      name: 'Greige With Black Floor',
+      imageUrl: getImageUrl('/seats/greige-with-black-floor.jpg'),
+    },
+    {
+      name: 'Greige With Black Top',
+      imageUrl: getImageUrl('/seats/greige-with-black-top.jpg'),
+    },
+    {
+      name: 'Nero',
+      imageUrl: getImageUrl('/seats/nero.jpg'),
+    },
+    {
+      name: 'Greige',
+      imageUrl: getImageUrl('/seats/greige.jpg'),
+    },
+  ];
+
+  const trim = [
+    {
+      name: 'Carbon Macrotwill',
+      price: 2500,
+      imageUrl: getImageUrl('/trim/Carbon-Macrotwill.jpg'),
+    },
+    {
+      name: 'High Gloss Copper Yarn Carbon Fiber Trim',
+      price: 3500,
+      imageUrl: getImageUrl(
+        '/trim/High-Gloss-Copper-Yarn-Carbon-Fiber-Trim.jpg'
+      ),
+    },
+    {
+      name: 'Open Pore Radica Wood Trim',
+      price: null,
+      imageUrl: getImageUrl('/trim/Open-Pore-Radica-Wood-Trim.jpg'),
+    },
+  ];
+
+  const optionsTypes = ['Interior Equipment', 'Performance & Safety'];
+
+  const options = [
+    {
+      name: 'Sonus faber high premium sound system with 19 speakers',
+      price: 4000,
+      imageUrl: getImageUrl('/options/sound-system.jpg'),
+      description: null,
+      type: 'Interior Equipment',
+    },
+    {
+      name: 'Alcantara Headliner and Pillars',
+      price: 1900,
+      imageUrl: getImageUrl('/options/alcantara-headliner.jpg'),
+      description:
+        'Alcantara textile covers the headliner, upper pillars, dome light surround and front sun visors.',
+      type: 'Interior Equipment',
+    },
+    {
+      name: 'Alarm system',
+      price: 2000,
+      imageUrl: getImageUrl('/options/alarm-system.jpg'),
+      description:
+        'The vehicle security alarm monitors the vehicle doors and trunk lid for unauthorized entry and the START/STOP button for unauthorized operations. The system also includes a dual function anti-intrusion sensor and vehicle anti-lift sensor. The anti-intrusion sensor monitors the vehicle interior for motion. The vehicle anti-lift sensor monitors the vehicle for any lifting or tilting actions (tow away, tire removal, ferry transport, etc).',
+      type: 'Performance & Safety',
+    },
+  ];
+
   return c.json({
+    trim,
+    seats,
     wheels,
     colors,
     colorsTypes,
     packages,
+    options,
+    optionsTypes,
   });
 });
 
