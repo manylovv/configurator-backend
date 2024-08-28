@@ -71,6 +71,7 @@ app.get('/configurator', async (c) => {
 
   const packages = [
     {
+      id: 1,
       name: 'Comfort Package',
       imageUrl: getImageUrl('/packages/comfort.jpg'),
       price: 1470,
@@ -81,6 +82,7 @@ app.get('/configurator', async (c) => {
       ],
     },
     {
+      id: 2,
       name: 'Sport Design Package',
       imageUrl: getImageUrl('/packages/sport-design.jpg'),
       price: 1800,
@@ -91,12 +93,14 @@ app.get('/configurator', async (c) => {
       ],
     },
     {
+      id: 3,
       name: 'Tech Assistance Package',
       imageUrl: getImageUrl('/packages/tech-assistance.jpg'),
       price: 2600,
       characteristics: ['Frameless digital rearview mirror', 'Head Up Display'],
     },
     {
+      id: 4,
       name: 'ADAS Full Package',
       imageUrl: getImageUrl('/packages/ADAS.jpg'),
       price: 8300,
@@ -114,6 +118,7 @@ app.get('/configurator', async (c) => {
       ],
     },
     {
+      id: 5,
       name: 'ADAS Base Package',
       imageUrl: getImageUrl('/packages/ADAS.jpg'),
       price: 4500,
