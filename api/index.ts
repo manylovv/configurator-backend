@@ -183,6 +183,7 @@ app.get('/configurator', async (c) => {
 
   const options = [
     {
+      id: 12,
       name: 'Sonus faber high premium sound system with 19 speakers',
       price: 4000,
       imageUrl: getImageUrl('/options/sound-system.jpg'),
@@ -190,6 +191,7 @@ app.get('/configurator', async (c) => {
       type: 'Interior Equipment',
     },
     {
+      id: 13,
       name: 'Alcantara Headliner and Pillars',
       price: 1900,
       imageUrl: getImageUrl('/options/alcantara-headliner.jpg'),
@@ -198,6 +200,7 @@ app.get('/configurator', async (c) => {
       type: 'Interior Equipment',
     },
     {
+      id: 14,
       name: 'Alarm system',
       price: 2000,
       imageUrl: getImageUrl('/options/alarm-system.jpg'),
