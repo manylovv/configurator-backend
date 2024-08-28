@@ -210,7 +210,46 @@ app.get('/configurator', async (c) => {
     },
   ];
 
+  const brakeCalipers = [
+    {
+      id: 1,
+      name: 'Gloss Black Painted Brake Calipers',
+      imageUrl:
+        '/configurator/GranTurismo/Brake Calipers/Gloss Black Painted Brake Calipers.jpg',
+      price: 500,
+    },
+    {
+      id: 2,
+      name: 'Gloss Red Painted Brake Calipers',
+      imageUrl:
+        '/configurator/GranTurismo/Brake Calipers/Gloss Red Painted Brake Calipers.jpg',
+      price: null,
+    },
+    {
+      id: 3,
+      name: 'Gloss Yellow Painted Brake Calipers',
+      imageUrl:
+        '/configurator/GranTurismo/Brake Calipers/Gloss Yellow Painted Brake Calipers.jpg',
+      price: 500,
+    },
+    {
+      id: 4,
+      name: 'Anodized Red Calipers',
+      imageUrl:
+        '/configurator/GranTurismo/Brake Calipers/Anodized Red Calipers.jpg',
+      price: 1000,
+    },
+    {
+      id: 5,
+      name: 'Brake Calipers Painted In Blue',
+      imageUrl:
+        '/configurator/GranTurismo/Brake Calipers/Brake Calipers Painted In Blue.jpg',
+      price: 500,
+    },
+  ];
+
   return c.json({
+    brakeCalipers,
     trim,
     seats,
     wheels,
