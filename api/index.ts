@@ -26,19 +26,9 @@ app.get('/models/:carName', async (c) => {
 
   const models = getModelsByCarName(carName);
 
-  return c.json(models);
-});
-
-app.get('/carLogoUrl/:carName', async (c) => {
-  const carName = c.req.param('carName');
-
-  if (!carName || carName.length === 0) {
-    return c.json({ error: 'Car name is required' });
-  }
-
   const logoUrl = getImageUrl(`/logos/${carName}.webp`);
 
-  return c.json({ logoUrl });
+  return c.json({ carLogo: logoUrl, models });
 });
 
 app.get('/configurator', async (c) => {
