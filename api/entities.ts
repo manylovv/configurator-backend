@@ -15,6 +15,7 @@ export const cars = [
 
 export const models = [
   {
+    carName: 'GranTurismo',
     carId: 'zKa_6r5RbnVZJPFh9Uf5B',
     id: 'nFIFzX_l5w1-O6pYtwmi7',
     name: 'Modena',
@@ -29,6 +30,7 @@ export const models = [
     traction: 'AWD',
   },
   {
+    carName: 'GranTurismo',
     carId: 'zKa_6r5RbnVZJPFh9Uf5B',
     id: 'PPiom90Y_FKOjYFxFS8ZI',
     name: 'Trofeo',
@@ -43,6 +45,7 @@ export const models = [
     traction: 'AWD',
   },
   {
+    carName: 'GranTurismo',
     carId: 'zKa_6r5RbnVZJPFh9Uf5B',
     id: 'iCRQMDXKjGJ3Uw1HtzAFt',
     name: 'Folgore',
