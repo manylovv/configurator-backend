@@ -5,11 +5,13 @@ export const cars = [
     id: 'zKa_6r5RbnVZJPFh9Uf5B',
     name: 'GranTurismo',
     imageUrl: getImageUrl('/cars/GranTurismo.webp'),
+    icon: getImageUrl('/icons/GranTurismo.png'),
   },
   {
     id: 'dhu5uq90KmNy-1Eu36Qb6',
     name: 'GranCabrio',
     imageUrl: getImageUrl('/cars/GranCabrio.webp'),
+    icon: getImageUrl('/icons/GranCabrio.webp'),
   },
 ];
 
