@@ -1,14 +1,8 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { handle } from 'hono/vercel';
-
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-const getImageUrl = (imageName: string) => {
-  return `${process.env.IMAGE_PREFIX_URL}${imageName}`;
-};
+import { cars } from './entities';
+import { getModelsByCarId } from './helpers';
 
 export const config = {
   runtime: 'edge',
@@ -17,6 +11,26 @@ export const config = {
 const app = new Hono().basePath('/api');
 
 app.use('*', cors());
+
+app.get('cars', async (c) => {
+  return c.json(cars);
+});
+
+app.get('/models/:carId', async (c) => {
+  const carId = Number(c.req.param('carId'));
+
+  if (!carId) {
+    return c.json({ error: 'Car id is required' });
+  }
+
+  if (isNaN(carId)) {
+    return c.json({ error: 'Car id must be a number' });
+  }
+
+  const models = getModelsByCarId(carId);
+
+  return c.json(models);
+});
 
 app.get('/configurator', async (c) => {
   const wheels = [
