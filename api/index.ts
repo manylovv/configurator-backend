@@ -2,7 +2,8 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { handle } from 'hono/vercel';
 import { cars } from './entities';
-import { getModelsByCarId } from './helpers';
+import { getModelsByCarName } from './helpers';
+import { getImageUrl } from './utils';
 
 export const config = {
   runtime: 'edge',
@@ -16,18 +17,14 @@ app.get('cars', async (c) => {
   return c.json(cars);
 });
 
-app.get('/models/:carId', async (c) => {
-  const carId = Number(c.req.param('carId'));
+app.get('/models/:carName', async (c) => {
+  const carName = c.req.param('carName');
 
-  if (!carId) {
-    return c.json({ error: 'Car id is required' });
+  if (!carName || carName.length === 0) {
+    return c.json({ error: 'Car name is required' });
   }
 
-  if (isNaN(carId)) {
-    return c.json({ error: 'Car id must be a number' });
-  }
-
-  const models = getModelsByCarId(carId);
+  const models = getModelsByCarName(carName);
 
   return c.json(models);
 });
