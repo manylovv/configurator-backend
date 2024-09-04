@@ -55,7 +55,7 @@ export const models = [
     year: 2024,
     imageUrl: getImageUrl('/models/GranTurismo/Folgore.webp'),
     engineLayout: 'EV',
-    displacement: '—',
+    displacement: null,
     acceleration: '2.6 sec',
     maxSpeed: '202 mph',
     maxPower: '751 HP',

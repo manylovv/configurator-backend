@@ -31,7 +31,7 @@ app.get('/models/:carName', async (c) => {
   return c.json({ carLogo: logoUrl, models });
 });
 
-app.get('/configurator', async (c) => {
+app.get('/modelDetails/:carName/:modelName', async (c) => {
   const wheels = [
     {
       imageUrl: 'https://i.imgur.com/0td8fwC.png',
