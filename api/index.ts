@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { handle } from 'hono/vercel';
-import { cars } from './entities';
-import { getModelsByCarName } from './helpers';
+import { models } from './entities';
+import { getSubModelsByCarName } from './helpers';
 import { getImageUrl } from './utils';
 
 export const config = {
@@ -14,7 +14,7 @@ const app = new Hono().basePath('/api');
 app.use('*', cors());
 
 app.get('/models', async (c) => {
-  return c.json(cars);
+  return c.json(models);
 });
 
 app.get('/subModels/:modelName', async (c) => {
@@ -24,11 +24,11 @@ app.get('/subModels/:modelName', async (c) => {
     return c.json({ error: 'Car name is required' });
   }
 
-  const models = getModelsByCarName(carName);
+  const subModels = getSubModelsByCarName(carName);
 
   const logoUrl = getImageUrl(`/logos/${carName}.webp`);
 
-  return c.json({ carLogo: logoUrl, submodels: models });
+  return c.json({ carLogo: logoUrl, subModels });
 });
 
 app.get('/subModelDetails/:modelName/:subModelName', async (c) => {

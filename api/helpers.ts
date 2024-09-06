@@ -1,5 +1,5 @@
-import { models } from './entities';
+import { subModels } from './entities';
 
-export const getModelsByCarName = (carName: string) => {
-  return models.filter((model) => model.carName === carName);
+export const getSubModelsByCarName = (carName: string) => {
+  return subModels.filter((model) => model.modelName === carName);
 };
