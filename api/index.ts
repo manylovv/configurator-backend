@@ -13,12 +13,12 @@ const app = new Hono().basePath('/api');
 
 app.use('*', cors());
 
-app.get('cars', async (c) => {
+app.get('/models', async (c) => {
   return c.json(cars);
 });
 
-app.get('/models/:carName', async (c) => {
-  const carName = c.req.param('carName');
+app.get('/submodels/:modelName', async (c) => {
+  const carName = c.req.param('modelName');
 
   if (!carName || carName.length === 0) {
     return c.json({ error: 'Car name is required' });
@@ -28,10 +28,10 @@ app.get('/models/:carName', async (c) => {
 
   const logoUrl = getImageUrl(`/logos/${carName}.webp`);
 
-  return c.json({ carLogo: logoUrl, models });
+  return c.json({ carLogo: logoUrl, submodels: models });
 });
 
-app.get('/modelDetails/:carName/:modelName', async (c) => {
+app.get('/subModelDetails/:modelName/:subModelName', async (c) => {
   const wheels = [
     {
       imageUrl: 'https://i.imgur.com/0td8fwC.png',
