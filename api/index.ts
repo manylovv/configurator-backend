@@ -17,7 +17,7 @@ app.get('/models', async (c) => {
   return c.json(cars);
 });
 
-app.get('/submodels/:modelName', async (c) => {
+app.get('/subModels/:modelName', async (c) => {
   const carName = c.req.param('modelName');
 
   if (!carName || carName.length === 0) {
