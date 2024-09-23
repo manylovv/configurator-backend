@@ -1,16 +1,10 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { handle } from 'hono/vercel';
-import { JSONFilePreset } from 'lowdb/node';
+import { db } from './db';
 import { models } from './entities';
 import { getSubModelsByCarName } from './helpers';
 import { getImageUrl } from './utils';
-
-type Db = {
-  images: Record<string, string[]>;
-};
-
-const db = await JSONFilePreset<Db>('db.json', { images: {} });
 
 export const config = {
   runtime: 'edge',
@@ -22,7 +16,7 @@ app.use('*', cors());
 
 app.get('/images/:id', async (c) => {
   const id = c.req.param('id');
-  const images = db.data.images[id];
+  const images = db.images[id];
 
   if (!images) {
     return c.json({ error: 'Image not found' }, 400);
@@ -85,10 +79,10 @@ app.get('/subModelDetails/:modelName/:subModelName', async (c) => {
       imageUrl: getImageUrl('/colors/grigio_incognito.jpg'),
     },
     {
-      name: 'Blu Modena',
-      price: 4500,
+      name: 'Bianco Astro Metallic',
+      price: null,
       type: 'Metallic',
-      imageUrl: getImageUrl('/colors/blu_modena.jpg'),
+      imageUrl: getImageUrl('/colors/bianco_astro_metallic.jpg'),
     },
     {
       name: 'Blu Royale - Fuoriserie',
