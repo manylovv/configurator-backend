@@ -1,9 +1,16 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { handle } from 'hono/vercel';
+import { JSONFilePreset } from 'lowdb/node';
 import { models } from './entities';
 import { getSubModelsByCarName } from './helpers';
 import { getImageUrl } from './utils';
+
+type Db = {
+  images: Record<string, string[]>;
+};
+
+const db = await JSONFilePreset<Db>('db.json', { images: {} });
 
 export const config = {
   runtime: 'edge',
@@ -12,6 +19,17 @@ export const config = {
 const app = new Hono().basePath('/api');
 
 app.use('*', cors());
+
+app.get('/images/:id', async (c) => {
+  const id = c.req.param('id');
+  const images = db.data.images[id];
+
+  if (!images) {
+    return c.json({ error: 'Image not found' }, 400);
+  }
+
+  return c.json({ images });
+});
 
 app.get('/models', async (c) => {
   return c.json(models);
@@ -147,28 +165,34 @@ app.get('/subModelDetails/:modelName/:subModelName', async (c) => {
 
   const seats = [
     {
+      id: 'INT-94086164',
       name: 'Cuoio',
       imageUrl: getImageUrl('/seats/cuoio.jpg'),
     },
     {
+      id: 'INT-94086165',
       name: 'Cuoio White Top',
       imageUrl: getImageUrl('/seats/cuoio-white-top.jpg'),
     },
     {
+      id: 'INT-94086166',
+      name: 'Greige',
+      imageUrl: getImageUrl('/seats/greige.jpg'),
+    },
+    {
+      id: 'INT-94086167',
       name: 'Greige With Black Floor',
       imageUrl: getImageUrl('/seats/greige-with-black-floor.jpg'),
     },
     {
+      id: 'INT-94086168',
       name: 'Greige With Black Top',
       imageUrl: getImageUrl('/seats/greige-with-black-top.jpg'),
     },
     {
+      id: 'INT-94086130',
       name: 'Nero',
       imageUrl: getImageUrl('/seats/nero.jpg'),
-    },
-    {
-      name: 'Greige',
-      imageUrl: getImageUrl('/seats/greige.jpg'),
     },
   ];
 
