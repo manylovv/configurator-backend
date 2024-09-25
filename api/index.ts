@@ -116,7 +116,7 @@ app.get('/subModelDetails/:modelName/:subModelName', async (c) => {
     {
       name: 'Verde Giada',
       price: null,
-      type: 'Fuoriserie',
+      type: 'Metallic',
       imageUrl: getImageUrl('/colors/blu_royale_fuoriserie.jpg'),
     },
     {
@@ -128,7 +128,7 @@ app.get('/subModelDetails/:modelName/:subModelName', async (c) => {
     {
       name: 'Grigio Maratea Matte',
       price: 4500,
-      type: 'Fuoriserie',
+      type: 'Metallic',
       imageUrl: getImageUrl('/colors/blu_royale_fuoriserie.jpg'),
     },
   ];
