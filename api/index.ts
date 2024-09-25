@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { HTTPException } from 'hono/http-exception';
 import { handle } from 'hono/vercel';
-import { db } from './db';
+import db from './db';
 import { models } from './entities';
 import { getSubModelsByCarName } from './helpers';
 import { getImagesStateString, getImageUrl } from './utils';
@@ -32,12 +32,18 @@ app.get('/images', async (c) => {
 
   const stateString = getImagesStateString({ color, wheel, brake, trim, seat });
 
-  // @ts-ignore
-  const images = db.db[stateString].images;
+  console.log('stateString', stateString);
 
-  if (!images) {
-    throw new HTTPException(400, { message: 'All fields are required' });
+  // @ts-ignore
+  const state = db.db[stateString];
+
+  console.log('state', state);
+
+  if (!state) {
+    throw new HTTPException(400, { message: 'Images not found' });
   }
+
+  const images = state.images;
 
   return c.json(images);
 });
