@@ -200,32 +200,32 @@ app.get('/subModelDetails/:modelName/:subModelName', async (c) => {
 
   const seats = [
     {
-      id: 'INT-94086164',
+      id: 'Cuoio__INT-94086164',
       name: 'Cuoio',
       imageUrl: getImageUrl('/seats/cuoio.jpg'),
     },
     {
-      id: 'INT-94086165',
+      id: 'Cuoio__INT-94086165',
       name: 'Cuoio White Top',
       imageUrl: getImageUrl('/seats/cuoio-white-top.jpg'),
     },
     {
-      id: 'INT-94086166',
+      id: 'Greige__INT-94086166',
       name: 'Greige',
       imageUrl: getImageUrl('/seats/greige.jpg'),
     },
     {
-      id: 'INT-94086167',
+      id: 'Greige__INT-94086167',
       name: 'Greige With Black Floor',
       imageUrl: getImageUrl('/seats/greige-with-black-floor.jpg'),
     },
     {
-      id: 'INT-94086168',
+      id: 'Greige__INT-94086168',
       name: 'Greige With Black Top',
       imageUrl: getImageUrl('/seats/greige-with-black-top.jpg'),
     },
     {
-      id: 'INT-94086130',
+      id: 'Nero__INT-94086130',
       name: 'Nero',
       imageUrl: getImageUrl('/seats/nero.jpg'),
     },
