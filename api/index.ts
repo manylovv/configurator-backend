@@ -2,22 +2,10 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { HTTPException } from 'hono/http-exception';
 import { handle } from 'hono/vercel';
-import { JSONFilePreset } from 'lowdb/node';
+import { db } from './db';
 import { models } from './entities';
 import { getSubModelsByCarName } from './helpers';
 import { getImagesStateString, getImageUrl } from './utils';
-
-type Db = {
-  db: Record<
-    string,
-    {
-      variant: number[];
-      images: string[];
-    }
-  >;
-};
-
-const db = await JSONFilePreset<Db>('db.json', { db: {} });
 
 export const config = {
   runtime: 'edge',
@@ -43,7 +31,9 @@ app.get('/images', async (c) => {
   }
 
   const stateString = getImagesStateString({ color, wheel, brake, trim, seat });
-  const images = db.data.db[stateString].images;
+
+  // @ts-ignore
+  const images = db.db[stateString].images;
 
   if (!images) {
     throw new HTTPException(400, { message: 'All fields are required' });

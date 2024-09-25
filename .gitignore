@@ -12,6 +12,8 @@
 # deps
 node_modules/
 
+db.json
+
 # env
 .env
 .env.production
