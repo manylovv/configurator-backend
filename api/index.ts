@@ -1,10 +1,23 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { HTTPException } from 'hono/http-exception';
 import { handle } from 'hono/vercel';
-import { db } from './db';
+import { JSONFilePreset } from 'lowdb/node';
 import { models } from './entities';
 import { getSubModelsByCarName } from './helpers';
-import { getImageUrl } from './utils';
+import { getImagesStateString, getImageUrl } from './utils';
+
+type Db = {
+  db: Record<
+    string,
+    {
+      variant: number[];
+      images: string[];
+    }
+  >;
+};
+
+const db = await JSONFilePreset<Db>('db.json', { db: {} });
 
 export const config = {
   runtime: 'edge',
@@ -14,15 +27,29 @@ const app = new Hono().basePath('/api');
 
 app.use('*', cors());
 
-app.get('/images/:id', async (c) => {
-  const id = c.req.param('id');
-  const images = db.images[id];
+app.get('/images', async (c) => {
+  const { color, wheel, brake, trim, seat } = c.req.query();
 
-  if (!images) {
-    return c.json({ error: 'Image not found' }, 400);
+  console.log('images request', {
+    color,
+    wheel,
+    brake,
+    trim,
+    seat,
+  });
+
+  if (!color || !wheel || !brake || !trim || !seat) {
+    throw new HTTPException(400, { message: 'All fields are required' });
   }
 
-  return c.json({ images });
+  const stateString = getImagesStateString({ color, wheel, brake, trim, seat });
+  const images = db.data.db[stateString].images;
+
+  if (!images) {
+    throw new HTTPException(400, { message: 'All fields are required' });
+  }
+
+  return c.json(images);
 });
 
 app.get('/models', async (c) => {
@@ -48,51 +75,69 @@ app.get('/subModelDetails/:modelName/:subModelName', async (c) => {
     {
       imageUrl: 'https://i.imgur.com/0td8fwC.png',
       name: 'Astreo Design Diamond Cut Matte Dark Myron Forged',
-      price: 3500,
+      price: 4500,
       diameter: '20"/21"',
     },
     {
       imageUrl: 'https://i.imgur.com/jEI7tXC.png',
-      name: 'Crio Design Diamond Cut Glossy Black Alloy',
-      price: null,
+      name: 'Astreo Design Diamond Cut Glossy Dark Myron Forged',
+      price: 4000,
       diameter: '20"/21"',
     },
     {
       imageUrl: 'https://i.imgur.com/iIOpQ6y.png',
-      name: 'Astreo Design Diamond Cut Glossy Dark Myron Forged',
-      price: 4000,
+      name: 'Pegaso Design Glossy Black Diamond Cut Forged',
+      price: 3500,
+      diameter: '20"/21"',
+    },
+    {
+      imageUrl: 'https://i.imgur.com/iIOpQ6y.png',
+      name: 'Pegaso Design Glossy Black Finishing Forged',
+      price: 3000,
+      diameter: '20"/21"',
+    },
+    {
+      imageUrl: 'https://i.imgur.com/iIOpQ6y.png',
+      name: 'Crio Design Diamond Cut Glossy Black Alloy',
+      price: null,
       diameter: '20"/21"',
     },
   ];
 
   const colors = [
     {
-      name: 'Verde Giada',
+      name: 'Bianco Astro Metallic',
       price: null,
       type: 'Metallic',
       imageUrl: getImageUrl('/colors/verde_giada.jpg'),
     },
     {
-      name: 'Grigio Incognito',
-      price: null,
-      type: 'Non-Metallic',
+      name: 'Blu Modena',
+      price: 4500,
+      type: 'Metallic',
       imageUrl: getImageUrl('/colors/grigio_incognito.jpg'),
     },
     {
-      name: 'Bianco Astro Metallic',
+      name: 'Verde Giada',
+      price: null,
+      type: 'Fuoriserie',
+      imageUrl: getImageUrl('/colors/blu_royale_fuoriserie.jpg'),
+    },
+    {
+      name: 'Nero Assoluto',
       price: null,
       type: 'Metallic',
       imageUrl: getImageUrl('/colors/bianco_astro_metallic.jpg'),
     },
     {
-      name: 'Blu Royale - Fuoriserie',
-      price: null,
+      name: 'Grigio Maratea Matte',
+      price: 4500,
       type: 'Fuoriserie',
       imageUrl: getImageUrl('/colors/blu_royale_fuoriserie.jpg'),
     },
   ];
 
-  const colorsTypes = ['Non-Metallic', 'Metallic', 'Fuoriserie'];
+  const colorsTypes = ['Metallic'];
 
   const packages = [
     {
@@ -192,6 +237,11 @@ app.get('/subModelDetails/:modelName/:subModelName', async (c) => {
 
   const trim = [
     {
+      name: 'Open Pore Radica Wood Trim',
+      price: null,
+      imageUrl: getImageUrl('/trim/Open-Pore-Radica-Wood-Trim.jpg'),
+    },
+    {
       name: 'Carbon Macrotwill',
       price: 2500,
       imageUrl: getImageUrl('/trim/Carbon-Macrotwill.jpg'),
@@ -202,11 +252,6 @@ app.get('/subModelDetails/:modelName/:subModelName', async (c) => {
       imageUrl: getImageUrl(
         '/trim/High-Gloss-Copper-Yarn-Carbon-Fiber-Trim.jpg'
       ),
-    },
-    {
-      name: 'Open Pore Radica Wood Trim',
-      price: null,
-      imageUrl: getImageUrl('/trim/Open-Pore-Radica-Wood-Trim.jpg'),
     },
   ];
 
@@ -247,35 +292,42 @@ app.get('/subModelDetails/:modelName/:subModelName', async (c) => {
       name: 'Gloss Black Painted Brake Calipers',
       imageUrl:
         '/configurator/GranTurismo/Brake Calipers/Gloss Black Painted Brake Calipers.jpg',
-      price: 500,
+      price: 1000,
     },
     {
       id: 2,
       name: 'Gloss Red Painted Brake Calipers',
       imageUrl:
         '/configurator/GranTurismo/Brake Calipers/Gloss Red Painted Brake Calipers.jpg',
-      price: null,
+      price: 1000,
     },
     {
       id: 3,
       name: 'Gloss Yellow Painted Brake Calipers',
       imageUrl:
         '/configurator/GranTurismo/Brake Calipers/Gloss Yellow Painted Brake Calipers.jpg',
-      price: 500,
-    },
-    {
-      id: 4,
-      name: 'Anodized Red Calipers',
-      imageUrl:
-        '/configurator/GranTurismo/Brake Calipers/Anodized Red Calipers.jpg',
       price: 1000,
     },
     {
+      id: 4,
+      name: 'Non-Painted Black brake calipers',
+      imageUrl:
+        '/configurator/GranTurismo/Brake Calipers/Anodized Red Calipers.jpg',
+      price: null,
+    },
+    {
       id: 5,
+      name: 'Anodized Red Calipers',
+      imageUrl:
+        '/configurator/GranTurismo/Brake Calipers/Brake Calipers Painted In Blue.jpg',
+      price: 2000,
+    },
+    {
+      id: 6,
       name: 'Brake Calipers Painted In Blue',
       imageUrl:
         '/configurator/GranTurismo/Brake Calipers/Brake Calipers Painted In Blue.jpg',
-      price: 500,
+      price: 1000,
     },
   ];
 

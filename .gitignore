@@ -9,8 +9,6 @@
 .idea/usage.statistics.xml
 .idea/shelf
 
-db.json
-
 # deps
 node_modules/
 
