@@ -105,31 +105,31 @@ app.get('/subModelDetails/:modelName/:subModelName', async (c) => {
       name: 'Bianco Astro Metallic',
       price: null,
       type: 'Metallic',
-      imageUrl: getImageUrl('/colors/verde_giada.jpg'),
+      imageUrl: getImageUrl('/colors/bianco_astro_metallic.jpg'),
     },
     {
       name: 'Blu Modena',
       price: 4500,
       type: 'Metallic',
-      imageUrl: getImageUrl('/colors/grigio_incognito.jpg'),
+      imageUrl: getImageUrl('/colors/blu_modena.jpg'),
     },
     {
       name: 'Verde Giada',
       price: null,
       type: 'Metallic',
-      imageUrl: getImageUrl('/colors/blu_royale_fuoriserie.jpg'),
+      imageUrl: getImageUrl('/colors/verde_giada.jpg'),
     },
     {
       name: 'Nero Assoluto',
       price: null,
       type: 'Metallic',
-      imageUrl: getImageUrl('/colors/bianco_astro_metallic.jpg'),
+      imageUrl: getImageUrl('/colors/nero_assoluto.jpg'),
     },
     {
       name: 'Grigio Maratea Matte',
       price: 4500,
       type: 'Metallic',
-      imageUrl: getImageUrl('/colors/blu_royale_fuoriserie.jpg'),
+      imageUrl: getImageUrl('/colors/grigio_maratea_matte.jpg'),
     },
   ];
 
